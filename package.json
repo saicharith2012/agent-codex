@@ -12,5 +12,8 @@
     "dev": "bun --hot run src/index.ts",
     "start": "bun run src/index.ts"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "groq-sdk": "^1.2.1"
+  }
 }
