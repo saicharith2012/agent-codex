@@ -1,12 +1,14 @@
 import Groq from "groq-sdk";
 import { env } from "../utils/env";
-import type { Message } from "../types/global";
+import type { ChatCompletionMessageParam } from "groq-sdk/resources/chat.mjs";
 
 const client = new Groq({
   apiKey: env.groqAPIKey,
 });
 
-export async function callLLM(messages: Message[]): Promise<string> {
+export async function callLLM(
+  messages: ChatCompletionMessageParam[],
+): Promise<string> {
   try {
     const chatCompletion = await client.chat.completions.create({
       model: env.groqModel,

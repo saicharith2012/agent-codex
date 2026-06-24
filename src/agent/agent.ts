@@ -1,9 +1,9 @@
+import type { ChatCompletionMessageParam } from "groq-sdk/resources/chat.mjs";
 import { callLLM } from "../llm/llm";
-import type { Message } from "../types/global";
 import { systemPrompt } from "./prompt";
 
 export class Agent {
-  private messages: Message[] = [{ role: "system", content: systemPrompt }];
+  private messages: ChatCompletionMessageParam[] = [systemPrompt];
 
   async Run(prompt: string): Promise<string> {
     this.messages.push({ role: "user", content: prompt });
