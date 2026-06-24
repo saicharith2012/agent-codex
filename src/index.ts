@@ -8,9 +8,15 @@ const welcomeMessage =
 process.stdout.write(welcomeMessage);
 
 for await (const line of console) {
-  if (line.trim() === "exit" || line.trim() === "clear") {
+  if (line.trim().toLowerCase() === "exit") {
     process.stdout.write(`Agent>\tGoodbye...chief!\n`);
     process.exit(0);
+  }
+
+  if (line.trim().toLowerCase() === "clear") {
+    console.clear()
+    process.stdout.write(`You>\t`)
+    continue;
   }
 
   process.stdout.write("Agent>\t");
