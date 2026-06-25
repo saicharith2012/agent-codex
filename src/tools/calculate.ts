@@ -1,8 +1,20 @@
-export function calculate(expression: string): string {
+import type { ToolResult } from "../types/global";
+
+export async function calculate(
+  args: Record<string, unknown>,
+): Promise<ToolResult> {
+  const expression = args.expression;
+
+  if (typeof expression !== "string") {
+    throw new Error("Invalid input: Expression must be a string");
+  }
+
   try {
-    const result = eval(expression);
-    return String(result);
+    return { ok: true, result: String(eval(expression)) };
   } catch (err) {
-    return `Error: ${err instanceof Error ? err.message : `error while evaluating ${expression}`}`;
+    return {
+      ok: false,
+      error: `Error while evaluating expression ${expression}: ${err instanceof Error ? err.message : ""}`,
+    };
   }
 }

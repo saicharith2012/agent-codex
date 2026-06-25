@@ -15,7 +15,6 @@ export async function callLLM(
   toolSchema: ChatCompletionTool[],
 ): Promise<LLMResponse | LLMResponseError> {
   try {
-    debug("messages", messages);
     debug("tools", toolSchema);
     const chatCompletion = await client.chat.completions.create({
       model: env.groqModel,

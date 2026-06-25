@@ -9,7 +9,7 @@
   },
   "private": true,
   "scripts": {
-    "dev": "bun --hot run src/index.ts",
+    "dev": "rm -rf .debug && bun --hot run src/index.ts",
     "start": "bun run src/index.ts"
   },
   "type": "module",

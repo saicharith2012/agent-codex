@@ -6,3 +6,17 @@ export type LLMResponse = {
 };
 
 export type LLMResponseError = { ok: false; error: string };
+
+type ToolResult =
+  | {
+      ok: true;
+      result: string;
+    }
+  | {
+      ok: false;
+      error: string;
+    };
+
+export type Tool = {
+  execute: (args: Record<string, unknown>) => Promise<ToolResult>;
+};
