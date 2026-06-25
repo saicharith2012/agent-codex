@@ -3,6 +3,8 @@ import { env } from "../utils/env";
 import type { ChatCompletionMessageParam } from "groq-sdk/resources/chat.mjs";
 import { systemPrompt } from "../agent/prompt";
 import type { LLMResponse, LLMResponseError } from "../types/global";
+import type { ChatCompletionTool } from "groq-sdk/resources/chat.mjs";
+import { debug } from "../utils/debug";
 
 const client = new Groq({
   apiKey: env.groqAPIKey,
@@ -10,16 +12,16 @@ const client = new Groq({
 
 export async function callLLM(
   messages: ChatCompletionMessageParam[],
+  toolSchema: ChatCompletionTool[],
 ): Promise<LLMResponse | LLMResponseError> {
   try {
+    debug("messages", messages);
+    debug("tools", toolSchema);
     const chatCompletion = await client.chat.completions.create({
       model: env.groqModel,
       messages: [systemPrompt, ...messages],
+      tools: toolSchema,
     });
-
-    if (!chatCompletion || !chatCompletion.choices[0]?.message.content) {
-      throw new Error("LLM is not responding chief!");
-    }
 
     return {
       ok: true,
